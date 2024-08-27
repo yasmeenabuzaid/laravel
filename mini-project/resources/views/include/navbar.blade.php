@@ -146,14 +146,15 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
+                            <a href="{{ route('products.index') }}">                  
+                                <i class="fas fa-table"></i>Products</a>
                         </li>
                         <li>
                     
                                     <a href="{{ route('products.index') }}">                  
                             
-                                <i class="fas fa-table"></i>Products</a>
+                            
+                                <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
                             <a href="form.html">

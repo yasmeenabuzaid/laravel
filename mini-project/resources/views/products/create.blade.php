@@ -116,9 +116,16 @@
             <textarea name="product_description" id="product_description" placeholder="Description" rows="5" required></textarea>
         </div>
         <div class="form-group">
-            <label for="product_price">Product Price</label>
-            <input type="number" id="product_price" name="product_price" placeholder="Price" step="0.01" min="0" required>
+            <label for="category_id">Category</label>
+            <select id="category_id" name="category_id" required>
+                <!-- Populate categories from the database -->
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
+        
+        
         <button class="form-submit-btn" type="submit">Add New Product</button>
     </form>
 </div>

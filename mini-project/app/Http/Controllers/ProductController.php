@@ -11,13 +11,10 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $products = Product::all();
-    dd($products); // Dump and die to inspect the variable
-    return view('admin.master', ['products' => $products]);
-}
-
-    
+    {
+        $products = Product::all();
+        return view('admin.products', ['products' => $products]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -36,22 +33,26 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:255',
             'product_description' => 'nullable|string',
             'product_price' => 'required|numeric|min:0',
+            'category_id' => 'nullable|exists:categories,id', // Ensure it exists if provided
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        if ($request->hasFile('image')) {
-            // حفظ الصورة في المسار `public/images` وحفظ اسم الملف في قاعدة البيانات
-            $imagePath = $request->file('image')->store('images', 'public');
-            $product->image_path = $imagePath;
-        }
+    
         $product = new Product();
         $product->product_name = $request->product_name;
         $product->product_description = $request->product_description;
         $product->product_price = $request->product_price;
+        $product->category_id = $request->category_id;
+    
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $product->image_path = $imagePath;
+        }
+    
         $product->save();
-
+    
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -84,6 +85,12 @@ class ProductController extends Controller
         $product->product_name = $validatedData['product_name'];
         $product->product_description = $validatedData['product_description'];
         $product->product_price = $validatedData['product_price'];
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $product->image_path = $imagePath;
+        }
+
         $product->save();
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
@@ -96,6 +103,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
+
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 }

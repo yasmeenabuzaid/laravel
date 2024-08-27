@@ -36,6 +36,7 @@ class CategoryController extends Controller
         $request->validate([
             'cat_name' => 'required|string|max:255',
             'cat_des' => 'nullable|string',
+            
         ]);
 
         $category=new Category();

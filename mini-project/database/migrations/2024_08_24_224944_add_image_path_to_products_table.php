@@ -13,6 +13,8 @@ return new class extends Migration
 {
     Schema::table('products', function (Blueprint $table) {
         $table->string('image_path')->nullable(); // أو استخدام `string('image_path')->default('default.jpg')` إذا أردت قيمة افتراضية.
+        $table->unsignedBigInteger('category_id')->nullable()->change();
+
     });
 }
 
