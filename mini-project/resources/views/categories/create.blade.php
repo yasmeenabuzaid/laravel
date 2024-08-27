@@ -127,6 +127,10 @@
           <label for="cat_des">Category description</label>
           <textarea name="cat_des" id="cat_des" placeholder="description" rows="10" cols="50" required>          </textarea>
         </div>
+        <div class="form-group">
+          <label for="img">create img</label>
+          <input type="file" id="cat_img" name="cat_img" placeholder="Category img" required>
+        </div>
         <button class="form-submit-btn" type="submit">add new category</button>
       </form>
     </div>

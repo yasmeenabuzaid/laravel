@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Product;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -13,7 +14,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories=Category::all();
-        return view('admin/master',['categories'=>$categories]);
+        $products = Product::all();
+
+        return view('admin/master',['categories'=>$categories,'products' => $products]);
     }
 
     /**
@@ -59,6 +62,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        
         $category = Category::findOrFail($id);
   return view('categories.edit', ['category' => $category]);
     }
